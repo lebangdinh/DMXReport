@@ -51,6 +51,9 @@
       color: #0f172a;
       font-weight: 800;
     }
+  
+    .data-table th, .data-table td { padding: 8px 10px; font-size: 11px; white-space: nowrap; }
+    .data-table th { font-weight: 800; letter-spacing: 0.025em; }
   </style>
 
   <!-- Firebase SDKs -->
@@ -87,31 +90,31 @@
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen">
 
-  <!-- LOGIN & PERMISSION MODAL -->
+  <!-- LOGIN & PERMISSION MODAL (GOOGLE SIGN-IN) -->
   <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6 border border-slate-200">
-      <div class="text-center space-y-2">
-        <div class="w-14 h-14 bg-amber-400 text-indigo-950 rounded-2xl mx-auto flex items-center justify-center text-2xl font-black shadow-lg">
-          <i class="fa-solid fa-lock"></i>
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6 border border-slate-200 text-center">
+      <div class="space-y-2">
+        <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl mx-auto flex items-center justify-center text-3xl font-black shadow-lg">
+          <i class="fa-solid fa-chart-pie"></i>
         </div>
-        <h2 class="text-xl font-black text-slate-900">ĐĂNG NHẬP HỆ THỐNG ĐMX</h2>
-        <p class="text-xs text-slate-500">Phân quyền Admin Cụm Siêu Thị & Nhân Viên AIO</p>
+        <h2 class="text-xl font-black text-slate-900">HỆ THỐNG ĐMX REALTIME</h2>
+        <p class="text-xs text-slate-500">Đăng nhập một chạm bằng tài khoản Google (Gmail) để tiếp tục</p>
       </div>
 
-      <div class="space-y-4">
-        <div id="loginError" class="text-rose-600 text-xs font-bold hidden text-center"></div>
-        <button type="button" id="googleSignInBtn" onclick="handleGoogleLogin()" class="w-full bg-white hover:bg-slate-50 text-slate-700 font-bold py-3 rounded-xl shadow-lg transition text-sm border border-slate-300 flex items-center justify-center gap-2.5">
-          <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
-            <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
-            <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
-            <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+      <div class="space-y-3 pt-2">
+        <button onclick="handleGoogleSignIn()" class="w-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold py-3.5 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-3 text-sm">
+          <svg class="w-5 h-5" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
           </svg>
-          Đăng nhập bằng Google
+          ĐĂNG NHẬP BẰNG TÀI KHOẢN GOOGLE
         </button>
+        <div id="loginError" class="text-rose-600 text-xs font-bold hidden"></div>
       </div>
 
-      <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-[11px] text-slate-600 space-y-1">
+      <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-[11px] text-slate-600 space-y-1 text-left">
         <div class="font-bold text-slate-800"><i class="fa-solid fa-circle-info text-blue-600"></i> Hướng dẫn phân quyền:</div>
         <div>• <b>Admin / Quản lý cụm</b>: Toàn quyền nạp file, cấu hình hệ thống & xem báo cáo.</div>
         <div>• <b>Nhân viên / User</b>: Xem số liệu báo cáo cá nhân & siêu thị trực thuộc.</div>
@@ -206,7 +209,7 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
         <!-- 1. DT Luỹ Kế -->
         <div class="border border-dashed border-slate-300 hover:border-blue-500 rounded-lg p-2 text-center bg-slate-50 transition relative group">
           <input type="file" id="input_dt_lk" accept=".xlsx, .xls" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
@@ -267,14 +270,38 @@
           <div class="text-[10px] text-purple-600 truncate" id="st_dt_nv">Đã có mẫu</div>
         </div>
 
-        <!-- 6. Giờ Công -->
+        <!-- 6. TĐ NV TGDĐ -->
+        <div class="border border-dashed border-amber-300 hover:border-amber-600 rounded-lg p-2 text-center bg-amber-50/50 transition relative group">
+          <input type="file" id="input_td_nv_tgdd" accept=".xlsx, .xls" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
+          <a href="https://baocao.dienmayxanh.com/dashboard/thi-dua?mien=1221&vung=2&khuvuc=3886&sieuthi=933&st=9192" target="_blank" onclick="event.stopPropagation()" class="absolute top-1.5 right-1.5 z-20 w-5 h-5 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-full flex items-center justify-center text-[10px] shadow font-black" title="Mở link Thi đua NV TGDĐ">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <div class="text-[11px] font-bold text-amber-950 flex items-center justify-center gap-1 pr-4">
+            <i class="fa-solid fa-trophy text-amber-600"></i> 6. TĐ NV TGDĐ
+          </div>
+          <div class="text-[10px] text-amber-600 truncate" id="st_td_nv_tgdd">Chưa nạp</div>
+        </div>
+
+        <!-- 7. TĐ NV TopZone -->
+        <div class="border border-dashed border-sky-300 hover:border-sky-600 rounded-lg p-2 text-center bg-sky-50/50 transition relative group">
+          <input type="file" id="input_td_nv_tz" accept=".xlsx, .xls" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
+          <a href="https://baocao.dienmayxanh.com/dashboard/thi-dua?mien=1221&vung=2&khuvuc=3886&sieuthi=10341&st=9789" target="_blank" onclick="event.stopPropagation()" class="absolute top-1.5 right-1.5 z-20 w-5 h-5 bg-sky-600 hover:bg-sky-700 text-white rounded-full flex items-center justify-center text-[10px] shadow" title="Mở link Thi đua NV TopZone">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <div class="text-[11px] font-bold text-sky-950 flex items-center justify-center gap-1 pr-4">
+            <i class="fa-solid fa-trophy text-sky-600"></i> 7. TĐ NV TZ
+          </div>
+          <div class="text-[10px] text-sky-600 truncate" id="st_td_nv_tz">Chưa nạp</div>
+        </div>
+
+        <!-- 8. Giờ Công -->
         <div class="border border-dashed border-emerald-300 hover:border-emerald-600 rounded-lg p-2 text-center bg-emerald-50/50 transition relative group">
           <input type="file" id="input_gio_cong" accept=".xlsx, .xls" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
           <a href="https://baocao.dienmayxanh.com/dashboard/timekeeping" target="_blank" onclick="event.stopPropagation()" class="absolute top-1.5 right-1.5 z-20 w-5 h-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full flex items-center justify-center text-[10px] shadow" title="Mở trang Giờ Công">
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
           <div class="text-[11px] font-bold text-emerald-900 flex items-center justify-center gap-1 pr-4">
-            <i class="fa-solid fa-id-card-clip text-emerald-600"></i> 6. Giờ Công
+            <i class="fa-solid fa-id-card-clip text-emerald-600"></i> 8. Giờ Công
           </div>
           <div class="text-[10px] text-emerald-600 truncate" id="st_gio_cong">10 AIO ĐMX</div>
         </div>
@@ -735,17 +762,22 @@
       <!-- Thẻ Chi Tiết Từng Nhân Viên -->
       <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
         <div>
-          <span class="bg-indigo-100 text-indigo-800 text-xs font-extrabold px-2.5 py-0.5 rounded uppercase">Chi Tiết Từng Nhân Viên</span>
-          <h2 class="text-lg sm:text-xl font-black text-slate-900 mt-1">THẺ CHI TIẾT THI ĐUA TỪNG MÔN CỦA NHÂN VIÊN</h2>
+          <span class="bg-indigo-100 text-indigo-800 text-xs font-extrabold px-2.5 py-0.5 rounded uppercase">Bảng Xếp Hạng Từng Nhân Viên</span>
+          <h2 class="text-lg sm:text-xl font-black text-slate-900 mt-1">BẢNG XẾP HẠNG & THI ĐUA CHI TIẾT TỪNG NHÂN VIÊN</h2>
         </div>
-        <div class="flex items-center gap-2">
-          <select id="select_nv_detail" class="border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-purple-500">
-            <option value="ALL">Hiển thị toàn bộ Nhân Viên AIO</option>
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-bold">
+            <span class="text-slate-600 px-1">Bề ngang:</span>
+            <button onclick="setEmployeeGridCols(2)" id="btn_grid_2" class="px-2.5 py-1 rounded bg-purple-600 text-white shadow">2 Cột</button>
+            <button onclick="setEmployeeGridCols(3)" id="btn_grid_3" class="px-2.5 py-1 rounded text-slate-600 hover:text-slate-900">3 Cột</button>
+          </div>
+          <select id="select_store_nv_detail" class="border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-purple-500">
+            <option value="ALL">Tất cả siêu thị</option>
           </select>
         </div>
       </div>
 
-      <div id="container_nv_cards" class="space-y-6"></div>
+      <div id="container_nv_cards" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </div>
 
     <!-- TAB 6: PHÂN TÍCH XU HƯỚNG 5-15 NGÀY -->
@@ -1065,32 +1097,6 @@
             </button>
           </div>
         </form>
-      </div>
-
-      <!-- QUẢN LÝ QUYỀN TRUY CẬP - CHỈ SUPER ADMIN MỚI THẤY -->
-      <div id="accessManagementPanel" class="hidden card-export p-4 sm:p-6 bg-white rounded-xl shadow-md border border-slate-200 space-y-4">
-        <div class="pb-3 border-b">
-          <h2 class="text-lg sm:text-2xl font-black text-slate-900"><i class="fa-solid fa-user-shield text-amber-500"></i> QUẢN LÝ QUYỀN TRUY CẬP HỆ THỐNG</h2>
-          <p class="text-xs text-slate-500 mt-1">Thêm/xoá email được phép đăng nhập. Chỉ Super Admin mới thấy và chỉnh được mục này.</p>
-        </div>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-2"><i class="fa-solid fa-crown text-amber-500"></i> Danh sách Admin (gần như toàn quyền)</label>
-            <div id="adminEmailList" class="space-y-1.5 mb-3"></div>
-            <div class="flex gap-2">
-              <input type="email" id="newAdminEmailInput" placeholder="email@gmail.com" class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm">
-              <button onclick="addAccessEmail('admins')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2 rounded-lg font-bold text-sm"><i class="fa-solid fa-plus"></i></button>
-            </div>
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-2"><i class="fa-solid fa-eye text-slate-500"></i> Danh sách Nhân viên (chỉ xem)</label>
-            <div id="staffEmailList" class="space-y-1.5 mb-3"></div>
-            <div class="flex gap-2">
-              <input type="email" id="newStaffEmailInput" placeholder="email@gmail.com" class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm">
-              <button onclick="addAccessEmail('staff')" class="bg-slate-600 hover:bg-slate-700 text-white px-3.5 py-2 rounded-lg font-bold text-sm"><i class="fa-solid fa-plus"></i></button>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- DANH SÁCH SIÊU THỊ & CỘT TÊN VIẾT TẮT CHO PHÉP NHẬP TÙY Ý -->
@@ -1482,8 +1488,15 @@
         loadSavedSettings();
         updateShortenerBtnStyles();
 
+        const skipSeed = localStorage.getItem('skip_auto_seed') === '1';
+        localStorage.removeItem('skip_auto_seed');
+
         const dbRecords = await getAllSnapshotsFromDB();
         if (!dbRecords || dbRecords.length === 0) {
+          if (skipSeed) {
+            // Người dùng vừa bấm "Xóa Data Cũ" — giữ database trống, không nạp lại data mẫu
+            state.activeDate = new Date().toISOString().slice(0, 10);
+          } else {
           const initialSnapshot = {
             dt_lk: ORIGINAL_INITIAL_DATA.dt_lk,
             dt_ngay: ORIGINAL_INITIAL_DATA.dt_ngay,
@@ -1504,6 +1517,7 @@
           const snap15 = JSON.parse(JSON.stringify(initialSnapshot));
           snap15.dt_nv_hop_nhat.forEach(r => { r['DOANH THU (TR)'] = (parseFloat(r['DOANH THU (TR)']) || 0) * 0.45; });
           await saveSnapshotToDB('2026-08-15', snap15);
+          }
         }
 
         await reloadHistoryState();
@@ -1526,6 +1540,7 @@
       }
 
       updateDateSelectors();
+      updateUploadStatuses();
       renderAll();
     }
 
@@ -1558,6 +1573,52 @@
       return Number(val).toLocaleString('vi-VN', { minimumFractionDigits: 0, maximumFractionDigits: dec }) + '%';
     }
 
+    function formatUploadTime(ts) {
+      if (!ts) return '';
+      const d = new Date(ts);
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      const mo = String(d.getMonth() + 1).padStart(2, '0');
+      return `${hh}:${mm} ${dd}/${mo}`;
+    }
+
+    // Cập nhật trạng thái "Đã nạp lúc..." cho từng loại file dựa trên dữ liệu của ngày đang xem
+    function updateUploadStatuses() {
+      const snap = state.allSnapshots[state.activeDate] || {};
+      const meta = snap.uploadMeta || {};
+      const maps = [
+        { key: 'dt_lk', status: 'st_dt_lk', label: 'DT Luỹ Kế' },
+        { key: 'dt_ngay', status: 'st_dt_ngay', label: 'DT Realtime' },
+        { key: 'td_lk', status: 'st_td_lk', label: 'TĐ Luỹ Kế' },
+        { key: 'td_ngay', status: 'st_td_ngay', label: 'TĐ Realtime' },
+        { key: 'dt_nv_hop_nhat', status: 'st_dt_nv', label: 'DT Nhân Viên' },
+        { key: 'td_nv_tgdd', status: 'st_td_nv_tgdd', label: 'TĐ NV TGDĐ' },
+        { key: 'td_nv_tz', status: 'st_td_nv_tz', label: 'TĐ NV TZ' },
+        { key: 'gio_cong', status: 'st_gio_cong', label: 'Giờ Công' }
+      ];
+
+      maps.forEach(m => {
+        const el = document.getElementById(m.status);
+        if (!el) return;
+        const hasData = Array.isArray(snap[m.key]) && snap[m.key].length > 0;
+        const ts = meta[m.key];
+
+        if (m.key === 'gio_cong' && hasData) {
+          const count = (snap.aio_employees || []).length;
+          el.innerHTML = ts
+            ? `<span class="text-emerald-700 font-bold">✓ ${count} AIO</span> <span class="text-slate-400">· ${formatUploadTime(ts)}</span>`
+            : `<span class="text-emerald-700 font-bold">✓ ${count} AIO</span>`;
+        } else if (hasData) {
+          el.innerHTML = ts
+            ? `<span class="text-emerald-600 font-bold">✓ Đã nạp</span> <span class="text-slate-400">· ${formatUploadTime(ts)}</span>`
+            : `<span class="text-emerald-600 font-bold">✓ Đã nạp</span> <span class="text-slate-400">(chưa rõ giờ)</span>`;
+        } else {
+          el.innerHTML = `<span class="text-slate-400">Chưa nạp</span>`;
+        }
+      });
+    }
+
     function showToast(msg, duration = 2500) {
       const toast = document.getElementById('toast');
       const toastMsg = document.getElementById('toastMsg');
@@ -1579,7 +1640,11 @@
         td_lk: curr.td_lk || ORIGINAL_INITIAL_DATA.td_lk || [],
         td_ngay: curr.td_ngay || ORIGINAL_INITIAL_DATA.td_ngay || [],
         td_rt: curr.td_rt || ORIGINAL_INITIAL_DATA.td_rt || [],
-        td_nv: curr.td_nv || ORIGINAL_INITIAL_DATA.td_nv || [],
+        td_nv: [
+          ...(curr.td_nv || ORIGINAL_INITIAL_DATA.td_nv || []),
+          ...(curr.td_nv_tgdd || []),
+          ...(curr.td_nv_tz || [])
+        ],
         dt_nv_hop_nhat: curr.dt_nv_hop_nhat || ORIGINAL_NV_HOP_NHAT || [],
         aio_employees: curr.aio_employees || ORIGINAL_INITIAL_DATA.aio_employees || [],
         stores_list: curr.stores_list || ORIGINAL_INITIAL_DATA.stores_list || []
@@ -1987,7 +2052,7 @@
       let countPass = 0, countWarn = 0, countDanger = 0;
 
       const searchKeyword = (document.getElementById('search_cuoi_ngay_td')?.value || '').toLowerCase();
-      const filterStoreVal = filterStoreTD.value || 'ALL';
+      const filterStoreVal = filterStoreTD?.value || 'ALL';
 
       const availableStores = Array.from(new Set(validTD_LK.map(r => r['ĐƠN VỊ / NHÂN VIÊN'] || '')));
       filterStoreTD.innerHTML = '<option value="ALL">Toàn Bộ Siêu Thị</option>';
@@ -2504,7 +2569,7 @@
         stores[storeName].push(row);
       });
 
-      const currentSelected = selectST.value || 'ALL';
+      const currentSelected = selectST?.value || 'ALL';
       selectST.innerHTML = '<option value="ALL">Hiển thị toàn bộ Siêu thị</option>';
       Object.keys(stores).forEach(st => {
         const opt = document.createElement('option');
@@ -2718,7 +2783,7 @@
       const data = getCurrentData();
       const tbodyRanking = document.getElementById('tbody_nv_ranking');
       const containerCards = document.getElementById('container_nv_cards');
-      const selectNV = document.getElementById('select_nv_detail');
+      const selectNV = document.getElementById('select_store_nv_detail');
       const filterStore = document.getElementById('filter_nv_store');
 
       tbodyRanking.innerHTML = '';
@@ -2838,7 +2903,7 @@
       });
 
       const totalAIODT = nvList.reduce((acc, n) => acc + n.totalDT, 0);
-      const storeFilterVal = filterStore.value || 'ALL';
+      const storeFilterVal = filterStore?.value || 'ALL';
       filterStore.innerHTML = '<option value="ALL">Tất cả siêu thị</option>';
       new Set(nvList.map(n => n.storeName)).forEach(st => {
         const opt = document.createElement('option');
@@ -2848,8 +2913,8 @@
         filterStore.appendChild(opt);
       });
 
-      const currentSelected = selectNV.value || 'ALL';
-      selectNV.innerHTML = '<option value="ALL">Hiển thị toàn bộ Nhân Viên AIO</option>';
+      const currentSelected = selectNV?.value || 'ALL';
+      selectNV.innerHTML = '<option value="ALL">Tất cả siêu thị</option>';
       nvList.forEach(nv => {
         const opt = document.createElement('option');
         opt.value = nv.rawName;
@@ -2900,61 +2965,125 @@
         tbodyRanking.appendChild(tr);
       });
 
-      // Detail Cards
-      nvList.forEach(nv => {
+            // Detail Cards (Styled like reference dashboard image)
+      nvList.forEach((nv, nvIdx) => {
         if (currentSelected !== 'ALL' && currentSelected !== nv.rawName) return;
         const safeId = `card_nv_${nv.rawName.replace(/[^a-zA-Z0-9]/g, '_')}`;
         const empDisplayName = getEmpDisplayName(nv.rawName);
         const stDisplayName = getStoreDisplayName(nv.storeName);
 
+        // Sort records by %LK descending
+        const sortedRecords = [...nv.records].sort((a, b) => (b.pctMonNV || 0) - (a.pctMonNV || 0));
+
         let tableRows = '';
-        nv.records.forEach(row => {
+        let weakPrograms = [];
+
+        sortedRecords.forEach((row, rIdx) => {
           const progDisplayName = getProgramDisplayName(row['CHƯƠNG TRÌNH'] || '');
+          const thucHienVal = (row['LOẠI TĐ'] == 2) ? (parseFloat(row['SỐ LƯỢNG']) || 0) : (parseFloat(row['DT QUY ĐỔI (TR)']) || 0);
+          const targetVal = parseFloat(row.targetMonNV) || 0;
+          const pctLuyKe = row.pctMonNV || 0;
+          const pctDuKien = parseFloat(row['% DỰ BÁO']) || pctLuyKe;
+          const hangVung = row['HẠNG VÙNG'] || '-';
+
+          if (pctLuyKe < 80 || thucHienVal === 0) {
+            weakPrograms.push(`${progDisplayName} (${fmtPct(pctLuyKe)})`);
+          }
+
+          let rankBadge = '';
+          if (hangVung !== '-' && hangVung <= 3) {
+            rankBadge = `<span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded ml-1">#${hangVung}</span>`;
+          }
+
           tableRows += `
-            <tr class="hover:bg-slate-50 transition border-b border-slate-100 text-xs">
-              <td class="p-2.5 font-bold text-slate-500">${row['MÃ CHƯƠNG TRÌNH'] || ''}</td>
-              <td class="p-2.5 font-semibold text-slate-900" title="${row['CHƯƠNG TRÌNH'] || ''}">${progDisplayName}</td>
-              <td class="p-2.5 text-center text-slate-500">Loại ${row['LOẠI TĐ'] || ''}</td>
-              <td class="p-2.5 text-right font-bold text-slate-800">${fmtNum(row['DOANH THU (TR)'])}</td>
-              <td class="p-2.5 text-right font-semibold text-slate-700">${fmtNum(row['DT QUY ĐỔI (TR)'])}</td>
-              <td class="p-2.5 text-right font-semibold text-slate-700">${fmtNum(row['SỐ LƯỢNG'], 0)}</td>
-              <td class="p-2.5 text-right font-bold text-indigo-700">${fmtNum(row.targetMonNV)}</td>
-              <td class="p-2.5 text-right font-black ${row.pctMonNV >= state.config.targetPass ? 'text-emerald-600' : 'text-rose-600'}">${fmtPct(row.pctMonNV)}</td>
-              <td class="p-2.5 text-center font-semibold text-indigo-700">${row['HẠNG VÙNG'] || '-'}</td>
-              <td class="p-2.5 text-center font-semibold text-slate-600">${row['HẠNG CTY'] || '-'}</td>
+            <tr class="hover:bg-slate-50 transition border-b border-slate-100 text-[11px]">
+              <td class="p-2 font-semibold text-slate-900 flex items-center justify-between" title="${row['CHƯƠNG TRÌNH'] || ''}">
+                <span class="truncate">${progDisplayName}</span>
+                ${rankBadge}
+              </td>
+              <td class="p-2 text-right font-bold text-slate-800">${fmtNum(thucHienVal)}</td>
+              <td class="p-2 text-right font-semibold text-slate-600">${fmtNum(targetVal)}</td>
+              <td class="p-2 text-right font-black ${pctLuyKe >= state.config.targetPass ? 'text-emerald-600' : (pctLuyKe >= 80 ? 'text-amber-600' : 'text-rose-600')}">${fmtPct(pctLuyKe)}</td>
+              <td class="p-2 text-right font-bold ${pctDuKien >= state.config.targetPass ? 'text-emerald-600' : 'text-slate-600'}">${fmtPct(pctDuKien)}</td>
             </tr>
           `;
         });
 
+        let rankBg = "bg-slate-200 text-slate-800";
+        if (nv.rankCum === 1) rankBg = "bg-amber-400 text-slate-950 font-black";
+        else if (nv.rankCum === 2) rankBg = "bg-slate-300 text-slate-900 font-black";
+        else if (nv.rankCum === 3) rankBg = "bg-amber-600 text-white font-black";
+
+        const totalAIODTForShare = totalAIODT > 0 ? totalAIODT : 1;
+        const sharePct = (nv.totalDT / totalAIODTForShare) * 100;
+        const hieuQuaQD = nv.targetDTNV > 0 ? (nv.totalDTQD / nv.targetDTNV) * 100 : 0;
+
         const card = document.createElement('div');
-        card.className = 'card-export bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden';
+        card.className = 'card-export bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden flex flex-col justify-between p-4 space-y-3';
         card.id = safeId;
         card.innerHTML = `
-          <div class="bg-gradient-to-r from-purple-950 to-indigo-950 text-white p-3.5 flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h3 class="font-extrabold text-sm sm:text-base text-white">${empDisplayName} (${nv.rawName}) - Target DT: ${fmtNum(nv.targetDTNV)} Tr</h3>
-              <div class="text-xs text-purple-200">Shop: <b>${stDisplayName}</b> | Hạng ST: <b class="text-amber-300">#${nv.rankStore}</b> | Hạng Cụm: <b class="text-amber-300">#${nv.rankCum}</b> | DT: <b>${fmtNum(nv.totalDT)} Tr</b></div>
+          <div>
+            <!-- Header: Tên NV & Xếp hạng -->
+            <div class="flex items-start justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 class="font-black text-base text-slate-900">${empDisplayName}</h3>
+                <div class="text-[11px] text-slate-500 font-semibold">${nv.code || '---'} • BP All In One - ĐMX (${stDisplayName})</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="${rankBg} px-2.5 py-1 rounded-lg text-xs shadow-sm">#${nv.rankCum}</span>
+                <button onclick="exportSingleElement('${safeId}', 'The_NV_${empDisplayName.replace(/[^a-zA-Z0-9]/g, '_')}')" class="text-slate-400 hover:text-slate-700 text-xs" title="Xuất ảnh thẻ"><i class="fa-solid fa-camera"></i></button>
+              </div>
             </div>
-            <button onclick="exportSingleElement('${safeId}', 'The_NV_${empDisplayName.replace(/[^a-zA-Z0-9]/g, '_')}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold"><i class="fa-solid fa-camera"></i> Xuất ảnh</button>
+
+            <!-- 3 KPI Cards -->
+            <div class="grid grid-cols-3 gap-2 my-3 text-center">
+              <div class="bg-blue-50/70 border border-blue-100 rounded-xl p-2">
+                <div class="text-xs font-black text-blue-600">${fmtNum(nv.totalDT)} Tr</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase mt-0.5">Doanh Thu</div>
+              </div>
+              <div class="bg-emerald-50/70 border border-emerald-100 rounded-xl p-2">
+                <div class="text-xs font-black text-emerald-600">${fmtPct(sharePct)}</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase mt-0.5">% Đóng Góp</div>
+              </div>
+              <div class="bg-amber-50/70 border border-amber-100 rounded-xl p-2">
+                <div class="text-xs font-black text-amber-600">${fmtNum(nv.totalDTQD)} QĐ</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase mt-0.5">Tổng QĐ</div>
+              </div>
+            </div>
+
+            <!-- Subline: DT & Hiệu quả QĐ -->
+            <div class="text-[11px] text-slate-600 font-medium text-center bg-slate-50 py-1.5 rounded-lg border border-slate-100 mb-3">
+              DT: <b>${fmtNum(nv.totalDT)} Tr</b> | HQ: <b>${fmtNum(nv.totalDTQD)} Tr</b> (Hiệu quả QĐ <b>${fmtPct(hieuQuaQD)}</b>)
+            </div>
+
+            <!-- Bảng Môn Thi Đua -->
+            <div class="overflow-x-auto rounded-xl border border-slate-200">
+              <table class="w-full text-left text-xs data-table">
+                <thead class="bg-slate-900 text-white font-bold uppercase text-[10px]">
+                  <tr>
+                    <th class="p-2">Môn (Xếp theo %LK)</th>
+                    <th class="p-2 text-right">Thực</th>
+                    <th class="p-2 text-right">Target</th>
+                    <th class="p-2 text-right">%LK</th>
+                    <th class="p-2 text-right">%Dự</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 font-medium">
+                  ${tableRows}
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div class="overflow-x-auto p-3">
-            <table class="w-full text-left text-xs data-table">
-              <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-[10px]">
-                <tr>
-                  <th class="p-2.5 sortable">Mã <span class="sort-icon"></span></th>
-                  <th class="p-2.5 sortable">Tên Chương Trình <span class="sort-icon"></span></th>
-                  <th class="p-2.5 text-center sortable">Loại <span class="sort-icon"></span></th>
-                  <th class="p-2.5 text-right sortable">DT Thực <span class="sort-icon"></span></th>
-                  <th class="p-2.5 text-right sortable">DT QĐ <span class="sort-icon"></span></th>
-                  <th class="p-2.5 text-right sortable">SL <span class="sort-icon"></span></th>
-                  <th class="p-2.5 text-right text-indigo-700 sortable">Target Môn <span class="sort-icon"></span></th>
-                  <th class="p-2.5 text-right sortable">% HT Môn <span class="sort-icon"></span></th>
-                  <th class="p-2.5 text-center sortable">Hạng Vùng <span class="sort-icon"></span></th>
-                  <th class="p-2.5 text-center sortable">Hạng Cty <span class="sort-icon"></span></th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-100">${tableRows}</tbody>
-            </table>
+
+          <!-- Cảnh báo môn yếu / chưa có số -->
+          <div class="bg-rose-50 border border-rose-200 rounded-xl p-3 text-xs space-y-1">
+            <div class="font-bold text-rose-900 flex items-center gap-1.5 text-[11px]">
+              <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> Cảnh báo môn yếu / chưa có số:
+            </div>
+            <div class="text-rose-700 text-[11px] font-medium leading-relaxed">
+              ${weakPrograms.length > 0 ? weakPrograms.join(', ') : '✓ Hoàn thành tốt tất cả các môn, không có môn yếu.'}
+            </div>
+            <div class="text-[10px] text-slate-400 pt-1 text-right">Cập nhật: ${new Date().toLocaleTimeString()} ${new Date().toLocaleDateString()}</div>
           </div>
         `;
         containerCards.appendChild(card);
@@ -3566,6 +3695,10 @@
           if (!state.allSnapshots[targetDate]) {
             state.allSnapshots[targetDate] = { date: targetDate };
           }
+          if (!state.allSnapshots[targetDate].uploadMeta) {
+            state.allSnapshots[targetDate].uploadMeta = {};
+          }
+          state.allSnapshots[targetDate].uploadMeta[typeKey] = Date.now();
 
           if (typeKey === 'gio_cong') {
             const aioList = [];
@@ -3587,16 +3720,15 @@
             });
             state.allSnapshots[targetDate].aio_employees = aioList;
             state.allSnapshots[targetDate].gio_cong = jsonData;
-            document.getElementById(statusElId).innerHTML = `<span class="text-emerald-700 font-bold">✓ ${aioList.length} AIO</span>`;
           } else {
             state.allSnapshots[targetDate][typeKey] = jsonData;
-            document.getElementById(statusElId).innerHTML = `<span class="text-emerald-600 font-bold">✓ Đã nạp</span>`;
           }
 
           await saveSnapshotToDB(targetDate, state.allSnapshots[targetDate]);
           state.activeDate = targetDate;
           await reloadHistoryState();
-          showToast(`Đã nạp và lưu vĩnh viễn dữ liệu ngày ${targetDate} vào Database!`);
+          updateUploadStatuses();
+          showToast(`Đã nạp dữ liệu (${formatUploadTime(Date.now())}) và lưu vĩnh viễn vào Database cho ngày ${targetDate}!`);
         } catch (err) {
           console.error(err);
           alert('Lỗi đọc file: ' + err.message);
@@ -3612,6 +3744,8 @@
         { input: 'input_td_lk', key: 'td_lk', status: 'st_td_lk' },
         { input: 'input_td_ngay', key: 'td_ngay', status: 'st_td_ngay' },
         { input: 'input_dt_nv', key: 'dt_nv_hop_nhat', status: 'st_dt_nv' },
+        { input: 'input_td_nv_tgdd', key: 'td_nv_tgdd', status: 'st_td_nv_tgdd' },
+        { input: 'input_td_nv_tz', key: 'td_nv_tz', status: 'st_td_nv_tz' },
         { input: 'input_gio_cong', key: 'gio_cong', status: 'st_gio_cong' }
       ];
 
@@ -3677,6 +3811,21 @@
       }
     }
 
+    
+    function setEmployeeGridCols(cols) {
+      const container = document.getElementById('container_nv_cards');
+      if (!container) return;
+      if (cols === 3) {
+        container.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4";
+        document.getElementById('btn_grid_3').className = "px-2.5 py-1 rounded bg-purple-600 text-white shadow";
+        document.getElementById('btn_grid_2').className = "px-2.5 py-1 rounded text-slate-600 hover:text-slate-900";
+      } else {
+        container.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+        document.getElementById('btn_grid_2').className = "px-2.5 py-1 rounded bg-purple-600 text-white shadow";
+        document.getElementById('btn_grid_3').className = "px-2.5 py-1 rounded text-slate-600 hover:text-slate-900";
+      }
+    }
+
     function scrollToNVCard(cardSuffix) {
       const card = document.getElementById(`card_nv_${cardSuffix}`);
       if (card) {
@@ -3735,6 +3884,7 @@
       document.getElementById('select_active_date')?.addEventListener('change', (e) => {
         state.activeDate = e.target.value;
         document.querySelectorAll('.curr-date-title').forEach(el => el.innerText = state.activeDate);
+        updateUploadStatuses();
         renderAll();
         showToast(`Đã chuyển sang xem báo cáo ngày: ${state.activeDate}`);
       });
@@ -3748,7 +3898,7 @@
       document.getElementById('search_nhom_hang')?.addEventListener('input', renderTabNhomHang);
       document.getElementById('search_nv')?.addEventListener('input', renderTabNV);
       document.getElementById('filter_nv_store')?.addEventListener('change', renderTabNV);
-      document.getElementById('select_nv_detail')?.addEventListener('change', renderTabNV);
+      document.getElementById('select_store_nv_detail')?.addEventListener('change', renderTabNV);
 
       await initDatabase();
     });
@@ -3756,43 +3906,34 @@
   <script>
 
     function clearAllDataAndReset() {
-      if (confirm("Bạn có chắc chắn muốn XÓA TOÀN BỘ dữ liệu đã lưu để nạp file Excel mới không?")) {
+      if (confirm("Bạn có chắc chắn muốn XÓA TOÀN BỘ dữ liệu đã lưu (tất cả các ngày) để nạp file Excel mới không? Hành động này không thể hoàn tác.")) {
+        showToast("Đang xóa sạch dữ liệu cũ...", 0);
         localStorage.clear();
-        showToast("Đã xóa sạch dữ liệu cũ thành công! Đang tải lại trang...", "success");
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
+        localStorage.setItem('skip_auto_seed', '1');
+        const delReq = indexedDB.deleteDatabase(DB_NAME);
+        delReq.onsuccess = () => {
+          hideToast();
+          showToast("Đã xóa sạch dữ liệu cũ thành công! Đang tải lại trang...");
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+        };
+        delReq.onerror = () => {
+          hideToast();
+          alert("Có lỗi khi xóa dữ liệu. Vui lòng thử lại.");
+        };
+        delReq.onblocked = () => {
+          hideToast();
+          alert("Không thể xóa dữ liệu vì đang có tab khác mở ứng dụng này. Vui lòng đóng các tab khác rồi thử lại.");
+        };
       }
     }
 
 </script>
   <script>
     // Firebase Auth & RBAC Implementation
-
-    // Admin chính - luôn có toàn quyền, không phụ thuộc Firestore, không bao giờ bị khoá
-    const SUPER_ADMIN_EMAIL = "lebangdinh@gmail.com";
-
-    let currentUserRole = 'admin'; // 'admin' (gần như toàn quyền) hoặc 'staff' (chỉ xem)
+    let currentUserRole = 'admin'; // 'admin' or 'staff'
     let currentLoggedUserEmail = '';
-    let accessListCache = { admins: [], staff: [] };
-
-    async function fetchAuthorizedEmails() {
-      try {
-        const cfgRef = window.doc(window.firebaseDb, "config", "access_list");
-        const cfgSnap = await window.getDoc(cfgRef);
-        if (cfgSnap.exists()) {
-          const data = cfgSnap.data();
-          return {
-            admins: (data.admins || []).map(e => String(e).toLowerCase().trim()),
-            staff: (data.staff || []).map(e => String(e).toLowerCase().trim())
-          };
-        }
-      } catch (e) {
-        console.log("Không đọc được danh sách email từ Firestore.", e);
-      }
-      // Chưa có doc trên Firestore hoặc lỗi mạng -> chỉ Admin chính được vào
-      return { admins: [], staff: [] };
-    }
 
     window.addEventListener('DOMContentLoaded', () => {
       // Check auth state after a short delay to let module load
@@ -3800,36 +3941,25 @@
         if (window.onAuthStateChanged && window.firebaseAuth) {
           window.onAuthStateChanged(window.firebaseAuth, async (user) => {
             if (user) {
-              const emailLower = (user.email || '').toLowerCase();
-              const isSuperAdmin = emailLower === SUPER_ADMIN_EMAIL.toLowerCase();
-              let isAdmin = isSuperAdmin;
-              let isStaff = false;
-
-              if (!isSuperAdmin) {
-                const { admins, staff } = await fetchAuthorizedEmails();
-                isAdmin = admins.includes(emailLower);
-                isStaff = staff.includes(emailLower);
-              }
-
-              if (!isAdmin && !isStaff) {
-                // Email không nằm trong danh sách được duyệt -> từ chối truy cập
-                const errBox = document.getElementById('loginError');
-                if (errBox) {
-                  errBox.textContent = "Tài khoản " + user.email + " chưa được cấp quyền truy cập. Vui lòng liên hệ Admin.";
-                  errBox.classList.remove('hidden');
-                }
-                await window.signOut(window.firebaseAuth);
-                document.getElementById('authModal').classList.remove('hidden');
-                return;
-              }
-
               currentLoggedUserEmail = user.email;
-              currentUserRole = isSuperAdmin ? 'super_admin' : (isAdmin ? 'admin' : 'staff');
               document.getElementById('authModal').classList.add('hidden');
+              
+              // Determine role (example: emails containing 'admin' or specified in Firestore)
+              currentUserRole = (user.email === 'dohung712@gmail.com' || user.email.includes('admin') || user.email.includes('manager')) ? 'admin' : 'staff';
+              
+              // Fetch user role from Firestore if available
+              try {
+                const userDocRef = window.doc(window.firebaseDb, "users", user.uid);
+                const userSnap = await window.getDoc(userDocRef);
+                if (userSnap.exists()) {
+                  currentUserRole = userSnap.data().role || currentUserRole;
+                }
+              } catch(e) {
+                console.log("Using default role assignment", e);
+              }
 
               applyRolePermissions();
-              if (isSuperAdmin) await loadAccessManagementPanel();
-              showToast("Đăng nhập thành công: " + user.email + " (" + (currentUserRole === 'super_admin' ? 'SUPER ADMIN' : currentUserRole.toUpperCase()) + ")");
+              showToast("Đăng nhập thành công: " + user.email + " (" + currentUserRole.toUpperCase() + ")");
             } else {
               document.getElementById('authModal').classList.remove('hidden');
             }
@@ -3838,99 +3968,15 @@
       }, 1000);
     });
 
-    // ===== QUẢN LÝ DANH SÁCH TRUY CẬP (chỉ Admin chính thấy & sửa được) =====
-    async function loadAccessManagementPanel() {
-      if (currentLoggedUserEmail.toLowerCase() !== SUPER_ADMIN_EMAIL.toLowerCase()) return;
-      const panel = document.getElementById('accessManagementPanel');
-      if (panel) panel.classList.remove('hidden');
-      try {
-        const cfgRef = window.doc(window.firebaseDb, "config", "access_list");
-        const cfgSnap = await window.getDoc(cfgRef);
-        if (cfgSnap.exists()) {
-          const data = cfgSnap.data();
-          accessListCache.admins = (data.admins || []).map(e => String(e).trim());
-          accessListCache.staff = (data.staff || []).map(e => String(e).trim());
-        } else {
-          accessListCache = { admins: [], staff: [] };
-        }
-      } catch (e) {
-        console.log("Không tải được danh sách quyền truy cập", e);
-      }
-      renderAccessLists();
-    }
-
-    function renderAccessLists() {
-      const renderList = (containerId, type) => {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        const list = accessListCache[type] || [];
-        if (list.length === 0) {
-          container.innerHTML = '<div class="text-xs text-slate-400 italic">Chưa có email nào</div>';
-          return;
-        }
-        container.innerHTML = list.map(email => `
-          <div class="flex items-center justify-between bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700">
-            <span class="truncate">${email}</span>
-            <button onclick="removeAccessEmail('${type}','${email.replace(/'/g, "\\'")}')" class="text-rose-500 hover:text-rose-700" title="Xoá"><i class="fa-solid fa-xmark"></i></button>
-          </div>
-        `).join('');
-      };
-      renderList('adminEmailList', 'admins');
-      renderList('staffEmailList', 'staff');
-    }
-
-    async function addAccessEmail(type) {
-      if (currentLoggedUserEmail.toLowerCase() !== SUPER_ADMIN_EMAIL.toLowerCase()) { showToast('Chỉ Super Admin được quản lý quyền truy cập', 'error'); return; }
-      const inputId = type === 'admins' ? 'newAdminEmailInput' : 'newStaffEmailInput';
-      const input = document.getElementById(inputId);
-      const email = (input.value || '').trim().toLowerCase();
-      if (!email || !email.includes('@')) { showToast('Email không hợp lệ', 'error'); return; }
-      if (email === SUPER_ADMIN_EMAIL.toLowerCase()) { showToast('Email này đã là Admin chính mặc định', 'error'); return; }
-      const already = accessListCache.admins.map(e => e.toLowerCase()).includes(email) ||
-                      accessListCache.staff.map(e => e.toLowerCase()).includes(email);
-      if (already) { showToast('Email đã có trong danh sách', 'error'); return; }
-      accessListCache[type].push(email);
-      await saveAccessList();
-      input.value = '';
-    }
-
-    async function removeAccessEmail(type, email) {
-      if (currentLoggedUserEmail.toLowerCase() !== SUPER_ADMIN_EMAIL.toLowerCase()) { showToast('Chỉ Super Admin được quản lý quyền truy cập', 'error'); return; }
-      accessListCache[type] = accessListCache[type].filter(e => e.toLowerCase() !== email.toLowerCase());
-      await saveAccessList();
-    }
-
-    async function saveAccessList() {
-      if (currentLoggedUserEmail.toLowerCase() !== SUPER_ADMIN_EMAIL.toLowerCase()) { showToast('Chỉ Super Admin được lưu danh sách quyền', 'error'); return; }
-      try {
-        const cfgRef = window.doc(window.firebaseDb, "config", "access_list");
-        await window.setDoc(cfgRef, {
-          admins: accessListCache.admins,
-          staff: accessListCache.staff
-        });
-        renderAccessLists();
-        showToast('Đã cập nhật danh sách quyền truy cập', 'success');
-      } catch (e) {
-        showToast('Lỗi lưu danh sách: ' + (e.message || e), 'error');
-      }
-    }
-
-    async function handleGoogleLogin() {
+    async function handleGoogleSignIn() {
       const errBox = document.getElementById('loginError');
-      const btn = document.getElementById('googleSignInBtn');
       errBox.classList.add('hidden');
-      if (btn) { btn.disabled = true; btn.classList.add('opacity-60'); }
 
       try {
-        const provider = new window.GoogleAuthProvider();
-        // Optional: restrict to a specific Workspace domain
-        // provider.setCustomParameters({ hd: "dienmayxanh.com" });
-        await window.signInWithPopup(window.firebaseAuth, provider);
+        await window.signInWithPopup(window.firebaseAuth, window.googleProvider);
       } catch (error) {
-        errBox.textContent = "Lỗi đăng nhập: " + (error.message || "Không thể đăng nhập bằng Google");
+        errBox.textContent = "Lỗi đăng nhập Google: " + (error.message || "Không thể xác thực");
         errBox.classList.remove('hidden');
-      } finally {
-        if (btn) { btn.disabled = false; btn.classList.remove('opacity-60'); }
       }
     }
 
@@ -3943,45 +3989,24 @@
     }
 
     function applyRolePermissions() {
-      const isSuperAdmin = currentUserRole === 'super_admin';
-      const isAdmin = currentUserRole === 'admin' || isSuperAdmin;
-      const isStaff = currentUserRole === 'staff';
-
-      // ADMIN và SUPER ADMIN: gần như toàn quyền sử dụng hệ thống.
-      // Điểm khác biệt duy nhất: chỉ SUPER ADMIN được quản lý danh sách email truy cập.
-      if (isStaff) {
-        // Staff chỉ xem báo cáo, không được nạp dữ liệu hay thay đổi cấu hình.
+      // If user is staff, restrict uploading new files and changing settings
+      if (currentUserRole === 'staff') {
+        // Hide upload boxes or disable inputs
         const uploadInputs = document.querySelectorAll('input[type="file"]');
-        uploadInputs.forEach(inp => { inp.disabled = true; });
+        uploadInputs.forEach(inp => {
+          if (inp.id !== 'input_import_db') inp.disabled = true;
+        });
 
+        // Hide config tab or disable saving config
         const tab5Btn = document.getElementById('btn_tab5');
         if (tab5Btn) {
           tab5Btn.style.opacity = '0.5';
-          tab5Btn.style.pointerEvents = 'none';
-          tab5Btn.title = 'Tài khoản Nhân viên không có quyền chỉnh sửa cài đặt';
+          tab5Btn.title = 'Tài khoản nhân viên không có quyền chỉnh sửa cài đặt';
         }
 
-        const configPanel = document.getElementById('accessManagementPanel');
-        if (configPanel) configPanel.classList.add('hidden');
-        console.log('Applied STAFF (View-only) permissions.');
-      } else if (isAdmin) {
-        // Admin thường và Super Admin đều có quyền thao tác dữ liệu/cấu hình như quản lý cụm.
-        // Chỉ khu vực quản lý tài khoản được khóa cho Admin thường.
-        const uploadInputs = document.querySelectorAll('input[type="file"]');
-        uploadInputs.forEach(inp => { inp.disabled = false; });
-
-        const tab5Btn = document.getElementById('btn_tab5');
-        if (tab5Btn) {
-          tab5Btn.style.opacity = '';
-          tab5Btn.style.pointerEvents = '';
-          tab5Btn.title = isSuperAdmin ? 'Super Admin - toàn quyền' : 'Admin - gần như toàn quyền';
-        }
-
-        if (!isSuperAdmin) {
-          const configPanel = document.getElementById('accessManagementPanel');
-          if (configPanel) configPanel.classList.add('hidden');
-        }
-        console.log(isSuperAdmin ? 'Applied SUPER ADMIN (Full access) permissions.' : 'Applied ADMIN (Near-full access) permissions.');
+        console.log("Applied STAFF (View-only) permissions.");
+      } else {
+        console.log("Applied ADMIN (Full access) permissions.");
       }
 
       // Add User Profile Badge to Header
@@ -3989,12 +4014,11 @@
       if (headerRight && !document.getElementById('userProfileBadge')) {
         const badge = document.createElement('div');
         badge.id = 'userProfileBadge';
-        const roleLabel = isSuperAdmin ? 'SUPER ADMIN' : (isAdmin ? 'ADMIN' : 'STAFF');
         badge.className = 'bg-indigo-900/90 border border-indigo-600 rounded-xl px-3 py-1 flex items-center gap-2 text-xs font-bold text-white shadow';
         badge.innerHTML = `
           <i class="fa-solid fa-user-shield text-amber-400"></i>
           <span class="truncate max-w-[120px]" title="${currentLoggedUserEmail}">${currentLoggedUserEmail}</span>
-          <span class="bg-emerald-500 text-slate-950 text-[9px] font-black px-1.5 py-0.5 rounded uppercase">${roleLabel}</span>
+          <span class="bg-emerald-500 text-slate-950 text-[9px] font-black px-1.5 py-0.5 rounded uppercase">${currentUserRole}</span>
           <button onclick="handleFirebaseLogout()" class="text-rose-300 hover:text-rose-100 ml-1" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></button>
         `;
         headerRight.appendChild(badge);
