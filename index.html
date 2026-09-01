@@ -90,31 +90,31 @@
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen">
 
-  <!-- LOGIN & PERMISSION MODAL (GOOGLE SIGN-IN) -->
+  <!-- LOGIN & PERMISSION MODAL -->
   <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6 border border-slate-200 text-center">
-      <div class="space-y-2">
-        <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl mx-auto flex items-center justify-center text-3xl font-black shadow-lg">
-          <i class="fa-solid fa-chart-pie"></i>
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6 border border-slate-200">
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 bg-amber-400 text-indigo-950 rounded-2xl mx-auto flex items-center justify-center text-2xl font-black shadow-lg">
+          <i class="fa-solid fa-lock"></i>
         </div>
-        <h2 class="text-xl font-black text-slate-900">HỆ THỐNG ĐMX REALTIME</h2>
-        <p class="text-xs text-slate-500">Đăng nhập một chạm bằng tài khoản Google (Gmail) để tiếp tục</p>
+        <h2 class="text-xl font-black text-slate-900">ĐĂNG NHẬP HỆ THỐNG ĐMX</h2>
+        <p class="text-xs text-slate-500">Phân quyền Admin Cụm Siêu Thị & Nhân Viên AIO</p>
       </div>
 
-      <div class="space-y-3 pt-2">
-        <button onclick="handleGoogleSignIn()" class="w-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold py-3.5 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-3 text-sm">
-          <svg class="w-5 h-5" viewBox="0 0 24 24">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+      <div class="space-y-4">
+        <div id="loginError" class="text-rose-600 text-xs font-bold hidden text-center"></div>
+        <button type="button" id="googleSignInBtn" onclick="handleGoogleLogin()" class="w-full bg-white hover:bg-slate-50 text-slate-700 font-bold py-3 rounded-xl shadow-lg transition text-sm border border-slate-300 flex items-center justify-center gap-2.5">
+          <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+            <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+            <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+            <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
           </svg>
-          ĐĂNG NHẬP BẰNG TÀI KHOẢN GOOGLE
+          Đăng nhập bằng Google
         </button>
-        <div id="loginError" class="text-rose-600 text-xs font-bold hidden"></div>
       </div>
 
-      <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-[11px] text-slate-600 space-y-1 text-left">
+      <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-[11px] text-slate-600 space-y-1">
         <div class="font-bold text-slate-800"><i class="fa-solid fa-circle-info text-blue-600"></i> Hướng dẫn phân quyền:</div>
         <div>• <b>Admin / Quản lý cụm</b>: Toàn quyền nạp file, cấu hình hệ thống & xem báo cáo.</div>
         <div>• <b>Nhân viên / User</b>: Xem số liệu báo cáo cá nhân & siêu thị trực thuộc.</div>
@@ -218,7 +218,7 @@
           <div class="text-[11px] font-bold text-slate-800 flex items-center justify-center gap-1 pr-4">
             <i class="fa-solid fa-file-excel text-blue-600"></i> 1. DT Luỹ Kế
           </div>
-          <div class="text-[10px] text-slate-400 truncate" id="st_dt_lk">Chưa nạp</div>
+          <div class="text-[10px] text-slate-400 truncate" id="st_dt_lk">Đã có mẫu</div>
         </div>
 
         <!-- 2. DT Realtime -->
@@ -230,7 +230,7 @@
           <div class="text-[11px] font-bold text-indigo-950 flex items-center justify-center gap-1 pr-4">
             <i class="fa-solid fa-bolt text-indigo-600"></i> 2. DT Realtime
           </div>
-          <div class="text-[10px] text-indigo-600 truncate" id="st_dt_ngay">Realtime 31/8</div>
+          <div class="text-[10px] text-indigo-600 truncate" id="st_dt_ngay">Chưa nạp</div>
         </div>
 
         <!-- 3. TĐ Luỹ Kế -->
@@ -242,7 +242,7 @@
           <div class="text-[11px] font-bold text-slate-800 flex items-center justify-center gap-1 pr-4">
             <i class="fa-solid fa-trophy text-amber-500"></i> 3. TĐ Luỹ Kế
           </div>
-          <div class="text-[10px] text-slate-400 truncate" id="st_td_lk">Chưa nạp</div>
+          <div class="text-[10px] text-slate-400 truncate" id="st_td_lk">Đã có mẫu</div>
         </div>
 
         <!-- 4. TĐ Realtime -->
@@ -254,7 +254,7 @@
           <div class="text-[11px] font-bold text-rose-950 flex items-center justify-center gap-1 pr-4">
             <i class="fa-solid fa-fire text-rose-500"></i> 4. TĐ Realtime
           </div>
-          <div class="text-[10px] text-rose-600 truncate" id="st_td_ngay">Realtime 31/8</div>
+          <div class="text-[10px] text-rose-600 truncate" id="st_td_ngay">Chưa nạp</div>
         </div>
 
         <!-- 5. DT Nhân Viên -->
@@ -266,7 +266,7 @@
           <div class="text-[11px] font-bold text-purple-900 flex items-center justify-center gap-1 pr-4">
             <i class="fa-solid fa-user-tag text-purple-600"></i> 5. DT Nhân Viên
           </div>
-          <div class="text-[10px] text-purple-600 truncate" id="st_dt_nv">Chưa nạp</div>
+          <div class="text-[10px] text-purple-600 truncate" id="st_dt_nv">Đã có mẫu</div>
         </div>
 
         <!-- 6. TĐ NV TGDĐ -->
@@ -302,7 +302,7 @@
           <div class="text-[11px] font-bold text-emerald-900 flex items-center justify-center gap-1 pr-4">
             <i class="fa-solid fa-id-card-clip text-emerald-600"></i> 8. Giờ Công
           </div>
-          <div class="text-[10px] text-emerald-600 truncate" id="st_gio_cong">10 AIO ĐMX</div>
+          <div class="text-[10px] text-emerald-600 truncate" id="st_gio_cong">Chưa nạp</div>
         </div>
       </div>
     </div>
@@ -1124,7 +1124,6 @@
         </div>
       </div>
 
-
       <!-- DANH SÁCH SIÊU THỊ & CỘT TÊN VIẾT TẮT CHO PHÉP NHẬP TÙY Ý -->
       <div class="card-export p-4 sm:p-6 bg-white rounded-xl shadow-md border border-slate-200 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b">
@@ -1283,10 +1282,15 @@
       Chart.register(ChartDataLabels);
     }
 
-    const ORIGINAL_INITIAL_DATA = { dt_lk: [], dt_ngay: [], dt_rt: [], td_lk: [], td_ngay: [], td_rt: [], td_nv: [], aio_employees: [], stores_list: [] };
+    // Không nhúng dữ liệu mẫu. Cấu trúc rỗng để hệ thống khởi động sạch và nhận dữ liệu từ Excel.
+    const ORIGINAL_INITIAL_DATA = {
+      dt_lk: [], dt_ngay: [], dt_rt: [],
+      td_lk: [], td_ngay: [], td_rt: [], td_nv: [],
+      aio_employees: [], stores_list: []
+    };
     const ORIGINAL_NV_HOP_NHAT = [];
 
-    const DB_NAME = 'DOANH_THU_THI_DUA_DB_V12';
+    const DB_NAME = 'DOANH_THU_THI_DUA_DB_V13_CLEAN';
     const DB_VERSION = 1;
     const STORE_NAME = 'daily_snapshots';
     const SETTINGS_KEY = 'DOANH_THU_PERSISTENT_SETTINGS_V12';
@@ -1516,7 +1520,7 @@
 
         const dbRecords = await getAllSnapshotsFromDB();
         if (!dbRecords || dbRecords.length === 0) {
-          // Bản sạch: không tự động nạp dữ liệu mẫu. Người dùng sẽ nạp Excel/Backup mới.
+          // Khởi động sạch: không tự nạp dữ liệu mẫu.
           state.activeDate = new Date().toISOString().slice(0, 10);
         }
 
@@ -3799,6 +3803,17 @@
       });
     }
 
+    async function resetToOriginalSample() {
+      if (confirm('Bạn có muốn nạp lại bộ dữ liệu mẫu gốc ban đầu?')) {
+        const db = await openDB();
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).clear();
+        tx.oncomplete = async () => {
+          await initDatabase();
+          showToast('Đã nạp lại bộ dữ liệu mẫu gốc!');
+        };
+      }
+    }
 
     
     function setEmployeeGridCols(cols) {
